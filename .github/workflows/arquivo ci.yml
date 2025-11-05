@@ -1,14 +1,26 @@
-steps:
-- name: Chekcout código
-  uses: actions/checkout@v3
+name: CI Pipeline
 
-- name: Instalar Node.js
-  uses: actions/setup-node@v3
-  with:
-    node-version '22'
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-- name: Instalar dependências
-  run: npm install
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-- name: Rodar Testes
-  run: npm test
+    steps:
+    - name: Chekcout código
+      uses: actions/checkout@v3
+
+    - name: Instalar Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version '22'
+
+    - name: Instalar dependências
+      run: npm install
+
+    - name: Rodar Testes
+      run: npm test
